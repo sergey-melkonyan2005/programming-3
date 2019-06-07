@@ -1,10 +1,9 @@
 class FinalHero extends Jarangutyun {
-    constructor(x, y, index) {
-        this.x = x;
-        this.y = y;
-        this.index = index;
+    constructor(x, y, index){
+        super(x, y, index);
         this.energy = 10;
     }
+
     //vorpes method
     getNewCoordinates() {
         this.directions = [
