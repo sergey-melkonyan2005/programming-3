@@ -2,6 +2,9 @@
 //! Requiring modules  --  START
 var Grass = require("./modules/Grass.js");
 var GrassEater = require("./modules/GrassEater.js");
+var YellowEater = require("./modules/YellowEater.js");
+var Predator = require("./modules/Predator.js")
+var FinalHero = require("./modules/FinalHero");
 let random = require('./modules/random');
 //! Requiring modules  --  END
 
@@ -9,6 +12,10 @@ let random = require('./modules/random');
 //! Setting global arrays  --  START
 grassArr = [];
 grassEaterArr = [];
+YellowEaterArr = [];
+PredatorArr = [];
+FinalHeroArr = [];
+
 matrix = [];
 grassHashiv = 0;
 //! Setting global arrays  -- END
@@ -17,7 +24,7 @@ grassHashiv = 0;
 
 
 //! Creating MATRIX -- START
-function matrixGenerator(matrixSize, grass, grassEater, grassEaterEater, waterArr, fireArr) {
+function matrixGenerator(matrixSize, grass, grassEater, YellowEater,Predator,FinalHero,waterArr, fireArr) {
     for (let i = 0; i < matrixSize; i++) {
         matrix[i] = [];
         for (let o = 0; o < matrixSize; o++) {
@@ -34,25 +41,34 @@ function matrixGenerator(matrixSize, grass, grassEater, grassEaterEater, waterAr
         let customY = Math.floor(random(matrixSize));
         matrix[customY][customX] = 2;
     }
-    for (let i = 0; i < grassEaterEater; i++) {
+    for (let i = 0; i < YellowEater; i++) {
         let customX = Math.floor(random(matrixSize));
         let customY = Math.floor(random(matrixSize));
         matrix[customY][customX] = 3;
     }
-    for (let i = 0; i < waterArr; i++) {
+    for (let i = 0; i < Predator; i++) {
         let customX = Math.floor(random(matrixSize));
         let customY = Math.floor(random(matrixSize));
         matrix[customY][customX] = 4;
     }
-    for (let i = 0; i < fireArr; i++) {
+    for (let i = 0; i < FinalHero; i++) {
         let customX = Math.floor(random(matrixSize));
         let customY = Math.floor(random(matrixSize));
         matrix[customY][customX] = 5;
     }
+    for (let i = 0; i < waterArr; i++) {
+        let customX = Math.floor(random(matrixSize));
+        let customY = Math.floor(random(matrixSize));
+        matrix[customY][customX] = 6;
+    }
+    for (let i = 0; i < fireArr; i++) {
+        let customX = Math.floor(random(matrixSize));
+        let customY = Math.floor(random(matrixSize));
+        matrix[customY][customX] = 7;
+    }
 }
-matrixGenerator(20, 1, 1);
+matrixGenerator(20,1,1);
 //! Creating MATRIX -- END
-
 
 
 //! SERVER STUFF  --  START
@@ -80,6 +96,18 @@ function creatingObjects() {
                 grassArr.push(grass);
                 grassHashiv++;
             }
+            else if (matrix[y][x] == 3) {
+                var yellowEater = new YellowEater(x, y);
+                YellowEaterArr.push(yellowEater);
+            }
+            else if (matrix[y][x] == 4) {
+                var predator = new Predator(x, y);
+                predatorArr.push(predator);
+            }
+            else if (matrix[y][x] == 5) {
+                var finalHero = new FinalHero(x, y);
+                FinalHeroArr.push(finalHero);
+            }
         }
     }
 }
@@ -96,7 +124,21 @@ function game() {
             grassEaterArr[i].eat();
         }
     }
-
+    if (YellowEaterArr[0] !== undefined) {
+        for (var i in YellowEaterArr) {
+            YellowEaterArr[i].eat();
+        }
+    }
+    if (PredatorArr[0] !== undefined) {
+        for (var i in PredatorArr) {
+            PredatorArr[i].eat();
+        }
+    }
+    if (FinalHeroArr[0] !== undefined) {
+        for (var i in FinalHeroArr) {
+            FinalHeroArr[i].eat();
+        }
+    }
     //! Object to send
     let sendData = {
         matrix: matrix,
