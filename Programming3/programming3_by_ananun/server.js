@@ -124,6 +124,7 @@ function game() {
     if (grassEaterArr[0] !== undefined) {
         for (var i in grassEaterArr) {
             grassEaterArr[i].eat();
+            grassEaterHashiv++
         }
     }
     if (YellowEaterArr[0] !== undefined) {
