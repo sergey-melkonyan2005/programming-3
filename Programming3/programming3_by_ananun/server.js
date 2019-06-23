@@ -19,13 +19,16 @@ FinalHeroArr = [];
 matrix = [];
 grassHashiv = 0;
 grassEaterHashiv = 0;
+YellowEaterHashiv = 0;
+PredatorHashiv = 0;
+FinalHeroHashiv = 0;
 //! Setting global arrays  -- END
 
 
 
 
 //! Creating MATRIX -- START
-function matrixGenerator(matrixSize, grass, grassEater, yelloweater,predator,finalhero,waterArr, fireArr) {
+function matrixGenerator(matrixSize, grass, grassEater, yelloweater, predator, finalhero, waterArr, fireArr) {
     for (let i = 0; i < matrixSize; i++) {
         matrix[i] = [];
         for (let o = 0; o < matrixSize; o++) {
@@ -68,7 +71,7 @@ function matrixGenerator(matrixSize, grass, grassEater, yelloweater,predator,fin
         matrix[customY][customX] = 7;
     }
 }
-matrixGenerator(20,1,1);
+matrixGenerator(20, 1, 1,2,2,3);
 
 //! Creating MATRIX -- END
 
@@ -104,7 +107,7 @@ function creatingObjects() {
             }
             else if (matrix[y][x] == 4) {
                 var predator = new Predator(x, y);
-                predatorArr.push(predator);
+                PredatorArr.push(predator);
             }
             else if (matrix[y][x] == 5) {
                 var finalhero = new FinalHero(x, y);
@@ -124,7 +127,6 @@ function game() {
     if (grassEaterArr[0] !== undefined) {
         for (var i in grassEaterArr) {
             grassEaterArr[i].eat();
-            grassEaterHashiv++
         }
     }
     if (YellowEaterArr[0] !== undefined) {

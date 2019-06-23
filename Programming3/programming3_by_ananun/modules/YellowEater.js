@@ -2,11 +2,9 @@ var LiveForm = require("./LiveForm");
 var random = require("./random.js");
 
 module.exports = class YellowEater extends LiveForm {
-    constructor(x, y, index) {
-        this.x = x;
-        this.y = y;
-        this.index = index;
-        this.energy = 10;
+    constructor(x, y) {
+        super(x, y);
+        this.life = 10;
     }
     //vorpes method
     getNewCoordinates() {
@@ -24,18 +22,8 @@ module.exports = class YellowEater extends LiveForm {
 
     chooseCell(character) {
         this.getNewCoordinates();
-        var found = [];
-        for (var i in this.directions) {
-            var x = this.directions[i][0];
-            var y = this.directions[i][1];
-            if (x >= 0 && x < matrix[0].length && y >= 0 && y < matrix.length) {
-                if (matrix[y][x] == character) {
-                    found.push(this.directions[i]);
-                }
-            }
-        }
-        return found;
-    }
+        return super.chooseCell(character);
+    } 
     //qayluma
     move() {
 
@@ -87,17 +75,18 @@ module.exports = class YellowEater extends LiveForm {
 
         if (this.energy >= 8 && newCell) {
             var newYellowEater = new YellowEater(newCell[0], newCell[1], this.index);
-            yellowEaterArr.push(newYellowEater);
+            YellowEaterArr.push(newYellowEater);
             matrix[newCell[1]][newCell[0]] = 3;
             this.energy = 5;
+            YellowEaterHashiv++;
         }
     }
     die() {
         if (this.energy <= 0) {
             matrix[this.x][this.y] = 0;
-            for (var i in yellowEaterArr) {
-                if (this.x == yellowEaterArr[i].x && this.y == yellowEaterArr[i].y) {
-                    yellowEaterArr.splice(i, 1);
+            for (var i in YellowEaterArr) {
+                if (this.x == YellowEaterArr[i].x && this.y == YellowEaterArr[i].y) {
+                    YellowEaterArr.splice(i, 1);
                     break;
                 }
             }
